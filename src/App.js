@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
+
 import SearchBar from './search/SearchBar';
 import ProductDetail from './product/ProductDetail';
 import Colors from './constants/Colors';
+import Dimensions from './constants/Dimensions';
+import ResultsScreen from './screens/ResultsScreen';
+
 import './App.css';
 
 const mockUpProduct = {
   name: 'Deo Reverse Sombrero Oxford',
   status: 'Nuevo',
   price: '1980',
-  sellCount: 234,
+  sellCount: 1,
   description: 'The scarpe'.repeat(200),
   categories: ['Electronica', 'iPod', 'Reproductores'],
 };
@@ -17,15 +25,26 @@ const mockUpProduct = {
 class App extends Component {
   render() {
     return (
-      <div
-        className="App"
-        style={styles.container}
-      >
-        <SearchBar />
-        <div style={styles.content}>
-          <ProductDetail product={mockUpProduct}/>
+      <Router>
+        <div
+          className="App"
+          style={styles.container}
+        >
+          <SearchBar />
+          <div style={styles.content}>
+            <Switch>
+              <Route
+                path="/product/:id"
+                render={() => <ProductDetail product={mockUpProduct} />}
+              />
+              <Route
+                path="/results"
+                component={ResultsScreen}
+              />
+            </Switch>
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
@@ -36,7 +55,7 @@ const styles = {
   },
   content: {
     width: '100%',
-    height: '100%',
+    height: `calc(100% - ${Dimensions.headerHeight})`,
     margin: '0 auto',
     padding: '0 20px 50px',
     background: Colors.lightGray,

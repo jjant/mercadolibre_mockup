@@ -1,11 +1,20 @@
 import React from 'react';
 import Colors from '../constants/Colors';
 
+const renderSellCount = (sellCount) => {
+  if (sellCount === 0)
+    return null;
+  if (sellCount === 1)
+    return <span> - {sellCount} vendido</span>;
+  if (sellCount > 1)
+    return <span> - {sellCount} vendidos</span>;
+};
+
 const ProductSummary = ({ name, status, sellCount, price }) => (
   <div style={styles.container}>
     <p style={styles.status}>
       <span>{status}</span>
-      {sellCount > 0 ? <span> - {sellCount} vendidos</span> : null}
+      {renderSellCount(sellCount)}
     </p>
     <h1 style={styles.name}>{name}</h1>
     <h1 style={styles.price}>$ {price}</h1>

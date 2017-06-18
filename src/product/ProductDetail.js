@@ -3,7 +3,6 @@ import Colors from '../constants/Colors';
 import ProductSummary from './ProductSummary';
 import ProductCategory from './ProductCategory';
 import SearchIcon from '../assets/ic_Search.png';
-import Logo from '../assets/Logo_ML.png';
 
 const ProductDetail = ({ product }) => {
   const { name, status, price, sellCount, description, categories } = product;

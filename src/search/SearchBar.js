@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import Colors from '../constants/Colors';
 
 import SearchIcon from '../assets/ic_Search.png';
@@ -6,19 +8,23 @@ import Logo from '../assets/Logo_ML.png';
 
 const SearchBar = () => (
   <div style={styles.container}>
-    <img
-      src={Logo}
-      style={styles.logo}
-    />
+    <Link to="/">
+      <img
+        src={Logo}
+        style={styles.logo}
+      />
+    </Link>
     <div style={styles.textBoxContainer}>
       <input
         style={styles.textBox}
         type="text"
         placeholder="Nunca dejes de buscar"
       />
-      <button style={styles.searchButton}>
-        <img src={SearchIcon} />
-      </button>
+      <Link to="/results">
+        <button style={styles.searchButton}>
+          <img src={SearchIcon} />
+        </button>
+      </Link>
     </div>
   </div>
 );
