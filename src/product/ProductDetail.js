@@ -5,14 +5,14 @@ import ProductCategory from './ProductCategory';
 import SearchIcon from '../assets/ic_Search.png';
 
 const ProductDetail = ({ product }) => {
-  const { name, status, price, sellCount, description, categories } = product;
+  const { name, status, price, sellCount, description, categories, imageUrl } = product;
   return (
     <div style={styles.container}>
       <ProductCategory categories={categories} />
       <div style={styles.productContainer}>
         <div style={styles.findName}>
           <img
-            src="http://mla-s2-p.mlstatic.com/581315-MLA25209135086_122016-O.jpg"
+            src={imageUrl}
             style={styles.productImage}
           />
           <ProductSummary {...product}/>

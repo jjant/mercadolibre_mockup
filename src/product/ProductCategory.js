@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Colors from '../constants/Colors';
+import { joinWithSeparator } from '../misc/utils';
 
 const mapCategoriesToComponents = (categories) => {
-  const CategorySeparator = <span style={styles.separator}>></span>;
-  return categories.map((category, index) => {
+  const categorySeparator = <span style={styles.separator}>></span>;
+  const mappedCategories = categories.map((category, index) => {
     if (index + 1 === categories.length)
       return <p key={category} style={{...styles.category, ...styles.lastCategory}}>{category}</p>
     return <p key={category} style={styles.category}>{category}</p>
-  })
-                   .reduce((prev, curr) => [prev, CategorySeparator, curr])
+  });
+  return joinWithSeparator(mappedCategories, categorySeparator);
 };
 
 const ProductCategory = ({ categories }) => (

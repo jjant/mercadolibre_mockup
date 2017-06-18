@@ -20,7 +20,12 @@ const mockUpProduct = {
   sellCount: 1,
   description: 'The scarpe'.repeat(200),
   categories: ['Electronica', 'iPod', 'Reproductores'],
+  location: 'Capital Federal',
+  imageUrl: 'http://mla-s2-p.mlstatic.com/581315-MLA25209135086_122016-O.jpg',
 };
+
+const products = [mockUpProduct, mockUpProduct];
+// const products = [];
 
 class App extends Component {
   render() {
@@ -39,7 +44,7 @@ class App extends Component {
               />
               <Route
                 path="/results"
-                component={ResultsScreen}
+                render={() => <ResultsScreen products={products}/>}
               />
             </Switch>
           </div>
@@ -55,7 +60,7 @@ const styles = {
   },
   content: {
     width: '100%',
-    height: `calc(100% - ${Dimensions.headerHeight})`,
+    minHeight: `calc(100% - ${Dimensions.headerHeight})`,
     margin: '0 auto',
     padding: '0 20px 50px',
     background: Colors.lightGray,

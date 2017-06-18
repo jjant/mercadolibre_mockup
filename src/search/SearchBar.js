@@ -49,7 +49,7 @@ const styles = {
   },
   textBox: {
     fontSize: '18px',
-    height: '38px',
+    height: '40px',
     width: '100%',
     maxWidth: '800px',
     padding: '0 10px',
