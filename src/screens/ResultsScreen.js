@@ -2,6 +2,7 @@ import React from 'react';
 import Colors from '../constants/Colors';
 import Product from '../results/Product';
 import ProductCategory from '../product/ProductCategory';
+import api from '../misc/api';
 import { joinWithSeparator } from '../misc/utils';
 
 const renderProducts = (products) => {
