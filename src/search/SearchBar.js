@@ -1,33 +1,36 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { push } from 'react-router-redux';
 
 import Colors from '../constants/Colors';
+import Logo from '../layout/Logo';
+import TextBox from './TextBox';
+import SearchButton from './SearchButton';
 
-import SearchIcon from '../assets/ic_Search.png';
-import Logo from '../assets/Logo_ML.png';
+import { queryItems } from '../state/actions/itemActions';
 
-const SearchBar = () => (
-  <div style={styles.container}>
-    <Link to="/">
-      <img
-        src={Logo}
-        style={styles.logo}
-      />
-    </Link>
-    <div style={styles.textBoxContainer}>
-      <input
-        style={styles.textBox}
-        type="text"
-        placeholder="Nunca dejes de buscar"
-      />
-      <Link to="/results">
-        <button style={styles.searchButton}>
-          <img src={SearchIcon} />
-        </button>
-      </Link>
-    </div>
-  </div>
-);
+// TODO: rremove
+window.push = push;
+
+class SearchBar extends Component {
+  onSubmit = (fields) => {
+    this.props.dispatch(queryItems(fields.queryText));
+    this.props.dispatch(push("/results"));
+  }
+
+  render() {
+    return (
+      <form style={styles.container} onSubmit={this.props.handleSubmit(this.onSubmit)}>
+        <Logo />
+        <div style={styles.textBoxContainer}>
+          <TextBox />
+          <SearchButton />
+        </div>
+      </form>
+    );
+  }
+}
 
 const styles = {
   container: {
@@ -47,31 +50,7 @@ const styles = {
     alignItems: 'center',
     marginLeft: '30px',
   },
-  textBox: {
-    fontSize: '18px',
-    height: '40px',
-    width: '100%',
-    maxWidth: '800px',
-    padding: '0 10px',
-    border: '0',
-    borderTopLeftRadius: '3px',
-    borderBottomLeftRadius: '3px',
-    border: `1px solid ${Colors.darkGray}`,
-  },
-  searchButton: {
-    width: '40px',
-    height: '40px',
-    background: Colors.lightGray,
-    border: '0',
-    borderTopRightRadius: '3px',
-    borderBottomRightRadius: '3px',
-    border: `1px solid ${Colors.darkGray}`,
-    borderLeft: '0',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-  }
 };
 
-export default SearchBar;
+// export default connect()(reduxForm({ form: 'SearchForm' })(SearchBar));
+export default reduxForm({ form: 'SearchForm' })(SearchBar);

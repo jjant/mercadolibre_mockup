@@ -17,6 +17,7 @@ const api = {
       picture: product.thumbnail,
       condition: product.condition,
       free_shipping: product.shipping.free_shipping,
+      location: product.address.city_name,
     }));
 
     return {
@@ -26,10 +27,11 @@ const api = {
 
   async queryItem(itemId) {
     const productUrl = `${this.baseUrl}/items/${itemId}`;
-    const productDescriptionUrl = `${productUrl}/description`;
+    const descriptionUrl = `${productUrl}/description`;
 
     const product = await fetch(productUrl).then(res => res.json())
-    const productDescription = await fetch(productDescriptionUrl).then(res => res.json());
+    const description = await fetch(descriptionUrl).then(res => res.json());
+    const categories = await this._queryCategories(product.category_id);
 
     return {
       item: {
@@ -43,9 +45,22 @@ const api = {
         condition: product.condition,
         free_shipping: product.shipping.free_shipping,
         sold_quantity: product.sold_quantity,
-        description: productDescription.text,
+        description: {
+          html: description.text,
+          plain_text: description.plain_text,
+        },
+        categories,
       }
     };
+  },
+
+  async _queryCategories(categoryId) {
+    const categoriesUrl = `${this.baseUrl}/categories/${categoryId}`;
+
+    const category = await fetch(categoriesUrl).then(res => res.json());
+    const categories = category.path_from_root;
+
+    return categories;
   }
 };
 

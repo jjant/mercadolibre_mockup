@@ -1,21 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Colors from '../constants/Colors';
 import Product from '../results/Product';
 import ProductCategory from '../product/ProductCategory';
-import api from '../misc/api';
 import { joinWithSeparator } from '../misc/utils';
 
 const renderProducts = (products) => {
   const separator = <hr style={styles.separator} />;
-  const mappedProducts = products.map((product, index) => <Product key={product.name + index} product={product} />);
+  const mappedProducts = products.map((product, index) => (
+    <Product key={product.id} product={product} />
+  ));
   return joinWithSeparator(mappedProducts, separator);
 };
 
 const ResultsScreen = ({ products }) => {
-  const categories = products[0].categories;
+  // TODO: change later
+  // const categories = products[0].categories;
+  // const categories = ['a', 'b'];
+
   return (
     <div style={styles.container}>
-      <ProductCategory categories={categories} />
       <div style={styles.productsContainer}>
         {renderProducts(products)}
       </div>
@@ -26,7 +30,7 @@ const ResultsScreen = ({ products }) => {
 const styles = {
   container: {
     margin: '0 auto',
-    maxWidth: '1000px',
+    maxWidth: '1100px',
   },
   separator: {
     margin: '0',
@@ -40,4 +44,8 @@ const styles = {
   },
 };
 
-export default ResultsScreen;
+const mapStateToProps = (state) => ({
+  products: state.item.items
+});
+
+export default connect(mapStateToProps)(ResultsScreen);

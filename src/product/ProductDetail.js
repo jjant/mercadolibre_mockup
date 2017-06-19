@@ -1,38 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Colors from '../constants/Colors';
 import ProductSummary from './ProductSummary';
 import ProductCategory from './ProductCategory';
+import ProductDescription from './ProductDescription';
 import SearchIcon from '../assets/ic_Search.png';
+import { queryItem } from '../state/actions/itemActions';
 
-const ProductDetail = ({ product }) => {
-  const { name, status, price, sellCount, description, categories, imageUrl } = product;
-  return (
-    <div style={styles.container}>
-      <ProductCategory categories={categories} />
-      <div style={styles.productContainer}>
-        <div style={styles.findName}>
-          <img
-            src={imageUrl}
-            style={styles.productImage}
-          />
-          <ProductSummary {...product}/>
-        </div>
-        <div style={styles.descriptionContainer}>
-          <h1 style={styles.descriptionHeader}>
-            Descripción del producto
-          </h1>
-          <p style={styles.descriptionBody}>
-            {description}
-          </p>
+class ProductDetail extends Component {
+  componentWillMount() {
+    const id = this.props.location.pathname.split('/').slice(-1)[0];
+    this.props.dispatch(queryItem(id));
+  }
+
+  render() {
+    if (this.props.product === null) return null;
+    const { description, categories, picture, ...productSummary } = this.props.product;
+    return (
+      <div style={styles.container}>
+        <ProductCategory categories={categories} />
+        <div style={styles.productContainer}>
+          <div style={styles.findName}>
+            <img
+              src={picture}
+              style={styles.productImage}
+            />
+            <ProductSummary {...productSummary}/>
+          </div>
+          <ProductDescription description={description}/>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 const styles = {
   container: {
-    maxWidth: '1000px',
+    maxWidth: '1100px',
     margin: '0 auto',
   },
   productContainer: {
@@ -54,21 +58,11 @@ const styles = {
     width: '680px',
     alignSelf: 'center',
   },
-  descriptionContainer: {
-    textAlign: 'left',
-    maxWidth: '650px',
-  },
-  descriptionHeader: {
-    fontWeight: '300',
-    fontSize: '28px',
-    marginBottom: '32px',
-  },
-  descriptionBody: {
-    color: Colors.darkGray,
-    fontWeight: '100',
-    fontSize: '16px',
-    margin: '0',
-  },
 };
 
-export default ProductDetail;
+const mapStateToProps = (state) => ({
+  product: state.item.currentItem,
+  location: state.router.location,
+});
+
+export default connect(mapStateToProps)(ProductDetail);

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -30,26 +29,24 @@ const products = [mockUpProduct, mockUpProduct];
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div
-          className="App"
-          style={styles.container}
-        >
-          <SearchBar />
-          <div style={styles.content}>
-            <Switch>
-              <Route
-                path="/product/:id"
-                render={() => <ProductDetail product={mockUpProduct} />}
-              />
-              <Route
-                path="/results"
-                render={() => <ResultsScreen products={products}/>}
-              />
-            </Switch>
-          </div>
+      <div
+        className="App"
+        style={styles.container}
+      >
+        <SearchBar />
+        <div style={styles.content}>
+          <Switch>
+            <Route
+              path="/product/:id"
+              render={() => <ProductDetail product={mockUpProduct} />}
+            />
+            <Route
+              path="/results"
+              render={() => <ResultsScreen products={products}/>}
+            />
+          </Switch>
         </div>
-      </Router>
+      </div>
     );
   }
 }
@@ -62,7 +59,7 @@ const styles = {
     width: '100%',
     minHeight: `calc(100% - ${Dimensions.headerHeight})`,
     margin: '0 auto',
-    padding: '0 20px 50px',
+    padding: '16px 20px 50px',
     background: Colors.lightGray,
     boxSizing: 'border-box',
     overflow: 'auto',

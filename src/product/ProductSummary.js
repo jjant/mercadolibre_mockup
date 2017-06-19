@@ -10,14 +10,14 @@ const renderSellCount = (sellCount) => {
     return <span> - {sellCount} vendidos</span>;
 };
 
-const ProductSummary = ({ name, status, sellCount, price }) => (
+const ProductSummary = ({ title, status, sellCount, price }) => (
   <div style={styles.container}>
     <p style={styles.status}>
       <span>{status}</span>
       {renderSellCount(sellCount)}
     </p>
-    <h1 style={styles.name}>{name}</h1>
-    <h1 style={styles.price}>$ {price}</h1>
+    <h1 style={styles.title}>{title}</h1>
+    <h1 style={styles.price}>$ {price.amount}</h1>
     <button style={styles.buyButton}>Comprar</button>
   </div>
 )
@@ -32,7 +32,7 @@ const styles = {
     color: Colors.darkGray,
     textAlign: 'left',
   },
-  name: {
+  title: {
     fontSize: '24px',
     margin: '0',
     textAlign: 'left',
@@ -44,7 +44,7 @@ const styles = {
     textAlign: 'left',
   },
   buyButton: {
-    width: '100%',
+    width: '250px',
     height: '40px',
     fontSize: '16px',
     fontWeight: '300',

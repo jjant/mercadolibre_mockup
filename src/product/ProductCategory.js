@@ -7,8 +7,8 @@ const mapCategoriesToComponents = (categories) => {
   const categorySeparator = <span style={styles.separator}>></span>;
   const mappedCategories = categories.map((category, index) => {
     if (index + 1 === categories.length)
-      return <p key={category} style={{...styles.category, ...styles.lastCategory}}>{category}</p>
-    return <p key={category} style={styles.category}>{category}</p>
+      return <p key={category.id} style={{...styles.category, ...styles.lastCategory}}>{category.name}</p>;
+    return <p key={category.id} style={styles.category}>{category.name}</p>;
   });
   return joinWithSeparator(mappedCategories, categorySeparator);
 };

@@ -1,19 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Colors from '../constants/Colors';
 
-const Product = ({ product }) => {
-  const { name, price, location, imageUrl } = product;
+const Product = ({ product, dispatch }) => {
+  const { title, price, location, picture, id } = product;
   return (
-    <div style={styles.container}>
-      <img src={imageUrl} style={styles.image} />
+    <Link style={styles.container} to={`/product/${id}`}>
+      <img src={picture} style={styles.image} />
       <div style={styles.informationContainer}>
         <div style={styles.priceAndLocationContainer}>
-          <p style={styles.price}>$ {price}</p>
+          <p style={styles.price}>$ {price.amount}</p>
           <p style={styles.location}>{location}</p>
         </div>
-        <p style={styles.title}>{name}</p>
+        <p style={styles.title}>{title}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -23,6 +24,7 @@ const styles = {
     margin: '0 auto',
     display: 'flex',
     padding: '16px 0',
+    textDecoration: 'none',
   },
   image: {
     width: '180px',
