@@ -41,7 +41,7 @@ class App extends Component {
               render={() => <ProductDetail product={mockUpProduct} />}
             />
             <Route
-              path="/results"
+              path="/items"
               render={() => <ResultsScreen products={products}/>}
             />
           </Switch>

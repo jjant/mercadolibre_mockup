@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { push } from 'react-router-redux';
+import { compose } from 'recompose';
 
 import Colors from '../constants/Colors';
 import Logo from '../layout/Logo';
 import TextBox from './TextBox';
 import SearchButton from './SearchButton';
-
-import { queryItems } from '../state/actions/itemActions';
-
-// TODO: rremove
-window.push = push;
+import { queryParams } from '../misc/utils';
 
 class SearchBar extends Component {
+  componentWillMount() {
+    this.props
+  }
+
   onSubmit = (fields) => {
-    this.props.dispatch(queryItems(fields.queryText));
-    this.props.dispatch(push("/results"));
+    this.props.dispatch(push(`/items?search=${fields.queryText}`));
   }
 
   render() {
@@ -52,5 +52,15 @@ const styles = {
   },
 };
 
-// export default connect()(reduxForm({ form: 'SearchForm' })(SearchBar));
-export default reduxForm({ form: 'SearchForm' })(SearchBar);
+const mapStateToProps = (state) => ({
+  initialValues: {
+    queryText: queryParams(state.router.location.search).get('search'),
+  },
+});
+
+const enhance = compose(
+  connect(mapStateToProps),
+  reduxForm({ form: 'SearchForm' })
+)
+
+export default enhance(SearchBar);

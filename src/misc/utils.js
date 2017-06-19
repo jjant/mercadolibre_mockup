@@ -5,3 +5,7 @@ export function joinWithSeparator(collection, separator) {
     return accumulator === null ? [element] : [...accumulator, React.cloneElement(separator, { key: `separator-${index}` }), element]
   }, null);
 }
+
+export function queryParams(queryString) {
+  return new URLSearchParams(queryString);
+}

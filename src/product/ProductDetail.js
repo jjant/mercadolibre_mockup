@@ -5,12 +5,16 @@ import ProductSummary from './ProductSummary';
 import ProductCategory from './ProductCategory';
 import ProductDescription from './ProductDescription';
 import SearchIcon from '../assets/ic_Search.png';
-import { queryItem } from '../state/actions/itemActions';
+import { queryItem, clearItem } from '../state/actions/itemActions';
 
 class ProductDetail extends Component {
   componentWillMount() {
     const id = this.props.location.pathname.split('/').slice(-1)[0];
     this.props.dispatch(queryItem(id));
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearItem());
   }
 
   render() {

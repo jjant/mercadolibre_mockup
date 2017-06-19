@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { lifecycle, compose } from 'recompose';
 import Colors from '../constants/Colors';
 import Product from '../results/Product';
 import ProductCategory from '../product/ProductCategory';
 import { joinWithSeparator } from '../misc/utils';
+import { queryItems, clearItems } from '../state/actions/itemActions';
 
 const renderProducts = (products) => {
   const separator = <hr style={styles.separator} />;
@@ -13,11 +15,7 @@ const renderProducts = (products) => {
   return joinWithSeparator(mappedProducts, separator);
 };
 
-const ResultsScreen = ({ products }) => {
-  // TODO: change later
-  // const categories = products[0].categories;
-  // const categories = ['a', 'b'];
-
+const ResultsScreen = ({ products, dispatch }) => {
   return (
     <div style={styles.container}>
       <div style={styles.productsContainer}>
@@ -45,7 +43,28 @@ const styles = {
 };
 
 const mapStateToProps = (state) => ({
-  products: state.item.items
+  products: state.item.items,
+  location: state.router.location,
 });
 
-export default connect(mapStateToProps)(ResultsScreen);
+const enhance = compose(
+  connect(mapStateToProps),
+
+  lifecycle({
+    componentWillMount() {
+      const queryText = new URLSearchParams(this.props.location.search).get('search');
+      this.props.dispatch(queryItems(queryText));
+    },
+    componentWillUnmount() {
+      this.props.dispatch(clearItems());
+    },
+    componentWillUpdate(nextProps) {
+      if (this.props.location.search === nextProps.location.search)
+        return;
+      const queryText = new URLSearchParams(nextProps.location.search).get('search');
+      this.props.dispatch(queryItems(queryText));
+    },
+  })
+);
+
+export default enhance(ResultsScreen);

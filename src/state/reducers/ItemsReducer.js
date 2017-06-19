@@ -25,11 +25,19 @@ class ItemsReducer {
     };
   }
 
+  static [actions.CLEAR_ITEMS](state) {
+    return {...state, items: [] };
+  }
+
   static [actions.QUERY_ITEM_SUCCESS](state, action) {
     return {
       ...state,
       currentItem: action.payload.item,
     };
+  }
+
+  static [actions.CLEAR_ITEM](state) {
+    return {...state, currentItem: null };
   }
 }
 
