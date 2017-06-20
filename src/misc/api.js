@@ -1,5 +1,3 @@
-const defaultImage = ""; // TODO: Change later
-
 const api = {
   baseUrl: 'https://mercadolibre-mockup-api.herokuapp.com',
 
@@ -15,8 +13,5 @@ const api = {
     return product;
   },
 };
-
-//TODO: remove
-window.api = api;
 
 export default api;

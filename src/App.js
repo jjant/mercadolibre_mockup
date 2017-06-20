@@ -10,8 +10,6 @@ import Colors from './constants/Colors';
 import Dimensions from './constants/Dimensions';
 import ResultsScreen from './screens/ResultsScreen';
 
-import './App.css';
-
 const mockUpProduct = {
   name: 'Deo Reverse Sombrero Oxford',
   status: 'Nuevo',
