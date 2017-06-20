@@ -9,20 +9,7 @@ import ProductDetail from './product/ProductDetail';
 import Colors from './constants/Colors';
 import Dimensions from './constants/Dimensions';
 import ResultsScreen from './screens/ResultsScreen';
-
-const mockUpProduct = {
-  name: 'Deo Reverse Sombrero Oxford',
-  status: 'Nuevo',
-  price: '1980',
-  sellCount: 1,
-  description: 'The scarpe'.repeat(200),
-  categories: ['Electronica', 'iPod', 'Reproductores'],
-  location: 'Capital Federal',
-  imageUrl: 'http://mla-s2-p.mlstatic.com/581315-MLA25209135086_122016-O.jpg',
-};
-
-const products = [mockUpProduct, mockUpProduct];
-// const products = [];
+import ProductDetailScreen from './screens/ProductDetailScreen';
 
 class App extends Component {
   render() {
@@ -36,11 +23,11 @@ class App extends Component {
           <Switch>
             <Route
               path="/product/:id"
-              render={() => <ProductDetail product={mockUpProduct} />}
+              component={ProductDetailScreen}
             />
             <Route
               path="/items"
-              render={() => <ResultsScreen products={products}/>}
+              component={ResultsScreen}
             />
           </Switch>
         </div>

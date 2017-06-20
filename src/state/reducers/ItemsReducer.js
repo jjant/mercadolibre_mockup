@@ -15,13 +15,17 @@ class ItemsReducer {
   }
 
   static [actions.QUERY_ITEMS_LOADING](state) {
-    return {...state, loading: true};
+    return {
+      ...state,
+      loading: true
+    };
   }
 
   static [actions.QUERY_ITEMS_SUCCESS](state, action) {
     return {
       ...state,
       items: action.payload.items,
+      loading: false,
     };
   }
 
@@ -29,10 +33,18 @@ class ItemsReducer {
     return {...state, items: [] };
   }
 
+  static [actions.QUERY_ITEM_LOADING](state) {
+    return {
+      ...state,
+      loading: true
+    };
+  }
+
   static [actions.QUERY_ITEM_SUCCESS](state, action) {
     return {
       ...state,
       currentItem: action.payload.item,
+      loading: false,
     };
   }
 

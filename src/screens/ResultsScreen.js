@@ -6,6 +6,7 @@ import Product from '../results/Product';
 import ProductCategory from '../product/ProductCategory';
 import { joinWithSeparator } from '../misc/utils';
 import { queryItems, clearItems } from '../state/actions/itemActions';
+import WithSpinner from '../layout/WithSpinner';
 
 const renderProducts = (products) => {
   const separator = <hr style={styles.separator} />;
@@ -45,6 +46,7 @@ const styles = {
 const mapStateToProps = (state) => ({
   products: state.item.items,
   location: state.router.location,
+  loading: state.item.loading,
 });
 
 const enhance = compose(
@@ -64,7 +66,9 @@ const enhance = compose(
       const queryText = new URLSearchParams(nextProps.location.search).get('search');
       this.props.dispatch(queryItems(queryText));
     },
-  })
+  }),
+
+  WithSpinner(state => state.loading)
 );
 
 export default enhance(ResultsScreen);

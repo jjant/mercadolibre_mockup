@@ -1,41 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import Colors from '../constants/Colors';
 import ProductSummary from './ProductSummary';
 import ProductCategory from './ProductCategory';
 import ProductDescription from './ProductDescription';
 import SearchIcon from '../assets/ic_Search.png';
-import { queryItem, clearItem } from '../state/actions/itemActions';
+import WithSpinner from '../layout/WithSpinner';
 
-class ProductDetail extends Component {
-  componentWillMount() {
-    const id = this.props.location.pathname.split('/').slice(-1)[0];
-    this.props.dispatch(queryItem(id));
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(clearItem());
-  }
-
-  render() {
-    if (this.props.product === null) return null;
-    const { description, categories, picture, ...productSummary } = this.props.product;
-    return (
-      <div style={styles.container}>
-        <ProductCategory categories={categories} />
-        <div style={styles.productContainer}>
-          <div style={styles.findName}>
-            <img
-              src={picture}
-              style={styles.productImage}
-            />
-            <ProductSummary {...productSummary}/>
-          </div>
-          <ProductDescription description={description}/>
+const ProductDetail = ({ product, loading }) => {
+  if (product === null) return null;
+  const { description, categories, picture, ...productSummaryProps } = product;
+  return (
+    <div style={styles.container}>
+      <ProductCategory categories={categories} />
+      <div style={styles.productContainer}>
+        <div style={styles.findName}>
+          <img src={picture} style={styles.productImage}/>
+          <ProductSummary {...productSummaryProps}/>
         </div>
+        <ProductDescription description={description}/>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 const styles = {
@@ -64,9 +51,8 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => ({
-  product: state.item.currentItem,
-  location: state.router.location,
-});
+const enhance = compose(
+  WithSpinner(({ loading }) => loading)
+);
 
-export default connect(mapStateToProps)(ProductDetail);
+export default enhance(ProductDetail);
