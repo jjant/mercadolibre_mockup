@@ -9,9 +9,6 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-// TODO: Remove later
-window.store = store;
-
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

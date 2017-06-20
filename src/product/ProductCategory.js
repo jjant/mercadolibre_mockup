@@ -27,7 +27,7 @@ const styles = {
   container: {
     display: 'flex',
     alignItems: 'center',
-    margin: '16px 0',
+    margin: '0 0 16px',
   },
   separator: {
     margin: '0 7px',
