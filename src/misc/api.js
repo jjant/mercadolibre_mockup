@@ -1,10 +1,10 @@
 const defaultImage = ""; // TODO: Change later
 
 const api = {
-  baseUrl: 'https://api.mercadolibre.com',
+  baseUrl: 'https://mercadolibre-mockup-api.herokuapp.com',
 
   async queryItems(query) {
-    const url = `${this.baseUrl}/sites/MLA/search?q=${query}`;
+    const url = `${this.baseUrl}/items?q=${query}`;
 
     const response = await fetch(url).then(res => res.json());
     const items = response.results.map(product => ({
